@@ -9,8 +9,8 @@
       </div>
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0">
-          <h2 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">Work with us</h2>
-          <p class="mt-6 text-lg leading-8 text-gray-300">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
+          <h2 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">Controle a sua música</h2>
+          <p class="mt-6 text-lg leading-8 text-gray-300">Aqui você consegue controlar o seu repertório por completo, criando apostilas personalizadas, músicas e muito mais...</p>
         </div>
         <div class="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
           <div class="grid grid-cols-1 gap-x-8 gap-y-6 text-base font-semibold leading-7 text-white sm:grid-cols-2 md:flex lg:gap-x-10">
@@ -29,15 +29,15 @@
   
   <script setup>
   const links = [
-    { name: 'Open roles', href: '#' },
-    { name: 'Internship program', href: '#' },
-    { name: 'Our values', href: '#' },
-    { name: 'Meet our leadership', href: '#' },
+    { name: 'Inserir Música', href: '' },
+    { name: 'Criar Apostila', href: '#' },
+    { name: 'Listar Músicas', href: '/music/listing' },
+    { name: 'Listar Apotilas', href: '/books/listing' },
   ]
   const stats = [
-    { name: 'Offices worldwide', value: '12' },
-    { name: 'Full-time colleagues', value: '300+' },
-    { name: 'Hours per week', value: '40' },
-    { name: 'Paid time off', value: 'Unlimited' },
+    { name: 'Melhoria no sistema', value: 'Continua' },
+    { name: 'Quantidade de apostilas', value: 'Ilimitada' },
+    { name: 'Suporte', value: '24h' },
+    { name: 'Quantidade de músicas', value: 'Ilimitada' },
   ]
   </script>
