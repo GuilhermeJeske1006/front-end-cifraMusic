@@ -1,14 +1,8 @@
-name: ci
+name: CI
 
 on:
-  push:
-    branches:
-      - main
-      - master
   pull_request:
-    branches:
-      - main
-      - master
+    branches: [ "master", "dev" ]
 
 jobs:
   ci:
@@ -38,7 +32,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies 👨🏻‍💻
-        run: npm ci --prefer-offline --no-audit
+        run: npm ci --prefer-offline --no-audit --force
 
 
       - name: Run tests 🧪
