@@ -1,4 +1,5 @@
 <template>
+  
   <ul role="list" class="divide-y divide-gray-100">
     <li v-for="person in people" :key="person.email" class="flex justify-between gap-x-6 py-5">
       <div class="flex min-w-0 gap-x-4">
@@ -7,13 +8,20 @@
           <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{ 'Baitaca' }}</p>
         </div>
       </div>
-      <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+      <div class="hidden shrink-0  sm:flex sm:flex-col sm:items-center">
         <p class="text-sm leading-6 text-gray-900">{{ 'Vaneira' }}</p>
         <p  class="mt-1 text-xs leading-5 text-gray-500">
           Criado em <time>{{ '3h ago' }}</time>
         </p>
 
       </div>
+      <div class="hidden shrink-0  sm:flex sm:flex-col sm:items-end">
+        <svg class="w-5 h-5 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 4 15">
+    <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
+  </svg>
+
+      </div>
+
     </li>
   </ul>
 </template>

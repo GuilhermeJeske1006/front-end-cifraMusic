@@ -13,7 +13,9 @@
         </div>
       </div>
       <div class="mx-auto max-w-7xl sm:py-12 sm:px-6 lg:px-8">
-      <music-list-music :item="data" />
+      <music-list-music :item="data" >
+       
+      </music-list-music>
     </div>
 
     </div>
