@@ -1,9 +1,6 @@
 <template>
     <div>
-        
 
-<!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com --> 
-<!--Footer container-->
 <footer
   class="flex flex-col items-center bg-neutral-200 text-center text-white dark:bg-gray-800">
   <div class="container pt-9">
