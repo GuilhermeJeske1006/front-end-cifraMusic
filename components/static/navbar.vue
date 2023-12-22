@@ -14,7 +14,6 @@
               <NuxtLink to="/music/listing" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Minhas Músicas</NuxtLink>
               <NuxtLink to="/books/listing" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Minhas Apostilas</NuxtLink>
               <NuxtLink to="/about" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Buscar Música</NuxtLink>
-              <NuxtLink to="/about" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Ver PDF</NuxtLink>
             </div>
           </div>
         </div>
@@ -72,7 +71,6 @@
         <NuxtLink to="/" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Minhas Músicas</NuxtLink>
         <NuxtLink to="/" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Minhas Apostilas</NuxtLink>
         <NuxtLink to="/" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Buscar Música</NuxtLink>
-        <NuxtLink to="/" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Ver PDF</NuxtLink>
       </div>
       <div class="border-t border-gray-700 pb-3 pt-4">
         <div class="flex items-center px-5">
