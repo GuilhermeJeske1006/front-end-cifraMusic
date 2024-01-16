@@ -62,7 +62,7 @@
     </div>
   </base-layout>
 </template>
-  
+
 <script setup>
 import { ref } from "vue";
 
@@ -95,7 +95,7 @@ const tabs = [
 const setting = ref([
   {
     name: 'Ver',
-    action: ''
+    action: '/music/detail/1'
   },
   {
     name: 'Editar',
@@ -162,4 +162,3 @@ const people = ref([
   },]);
 
 </script>
-  
