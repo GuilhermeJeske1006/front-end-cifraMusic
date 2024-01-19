@@ -14,6 +14,7 @@
       </div>
       <div class="mx-auto max-w-7xl sm:py-12 sm:px-6 lg:px-8">
         <music-list-music :items="people" :setting="setting" />
+        <music-modal-delete :open="open" :item="item"  @update:open="handleModalStateChanged"/>
 
     </div>
 
@@ -24,7 +25,19 @@
 <script setup>
 import { ref } from "vue";
 
+const open = ref(false)
+const item = ref({
+  title: 'Teste'
 
+})
+const openModal = () => {
+  open.value = true
+  document.body.classList.add('modal-open');
+
+}
+const handleModalStateChanged = (newState) => {
+  open.value = newState;
+};
 const tabs = [
   {
     icon: ` <svg class="w-4 h-4 me-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 10">
@@ -53,7 +66,8 @@ const tabs = [
 const setting = ref([
   {
     name: 'Ver',
-    action: '/music/detail/1'
+    action: '/music/detail/1',
+    link: true
   },
   {
     name: 'Editar',
@@ -61,7 +75,7 @@ const setting = ref([
   },
   {
     name: 'Excluir',
-    action: ''
+    action: openModal
   },
 ])
 

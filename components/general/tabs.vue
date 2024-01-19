@@ -5,7 +5,7 @@
                 <a :href="item.href"
                     class="inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group">
                    <div  v-html="item.icon">
-                    
+
                    </div> {{ item.name }}
                 </a>
             </li>
@@ -13,15 +13,15 @@
     </div>
 </template>
 
-<script>
+<script setup>
 
+import { defineProps } from 'vue';
 
-export default {
-    props: {
-        items: {
-            type: Object,
-            required: true
-        },
-    }
-}
+const props = defineProps({
+  items: {
+    type: Array,
+    default: []
+  }
+});
+
 </script>
