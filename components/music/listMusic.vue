@@ -1,7 +1,7 @@
 <template>
-  
+
   <ul role="list" class="divide-y divide-gray-100">
-    <li v-for="person, index in items" :key="person.email" class="flex justify-between gap-x-6 py-5">
+    <li v-for="(person, index) in items" :key="person.email" class="flex justify-between gap-x-6 py-5">
       <div class="flex min-w-0 gap-x-4">
         <div class="min-w-0 flex-auto">
           <p class="text-sm font-semibold leading-6 text-gray-900">{{ 'Fundo da grota' }}</p>
@@ -16,9 +16,9 @@
 
       </div>
       <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                <button style="background-color: transparent;" @click="openSetting(index)" type="button"
-                    class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                    id="user-menu-button" :aria-expanded="showSettings[index].toString()" aria-haspopup="true">
+        <button style="background-color: transparent;" @click="openSetting(index)" type="button"
+                class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                id="user-menu-button" :aria-expanded="(showSettings[index] ?? false).toString()" aria-haspopup="true">
                     <svg class="w-5 h-5 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                         viewBox="0 0 4 15">
                         <path
@@ -30,29 +30,31 @@
                 <div v-if="showSettings[index]"
                     class="absolute  z-10 mt-2 w-48  rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                     role="menu" aria-orientation="vertical" :aria-labelledby="'user-menu-button-' + index" tabindex="-1">
-                    
-                    <a v-for="item in setting" :key="item.id" :href="item.action" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+
+                    <a v-if="item.link" v-for="item in setting" :key="item.id" :href="item.action" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
                         :id="'user-menu-item-0-' + index">{{ item.name }}</a>
-                 
+                    <a v-if="!item.link" v-for="item in setting" :key="item.id" @click="item.action" class="block px-4 py-2 text-sm text-gray-700 cursor-pointer" role="menuitem" tabindex="-1"
+                     :id="'user-menu-item-0-' + index">{{ item.name }}</a>
+
                 </div>
             </div>
         </li>
     </ul>
 </template>
-  
+
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, defineProps } from "vue";
 
 const props = defineProps(['items', 'setting'])
 
 const showSettings = ref(Array(props.items.length).fill(false));
 
 watch(props.items, (newPeople) => {
-    showSettings.value = Array(newPeople.length).fill(false);
+  showSettings.value = Array(newPeople.length).fill(false);
 }, { immediate: true });
 
 const openSetting = (index) => {
-    showSettings.value = showSettings.value.map((_, i) => i === index);
+  showSettings.value = showSettings.value.map((_, i) => i === index);
 };
 
 </script>

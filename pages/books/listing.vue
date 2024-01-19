@@ -45,19 +45,36 @@
         <book-list-book :items="people" :setting="setting" />
 
         <general-paginate />
+
+        <book-modal-delete :open="open" :item="item"  @update:open="handleModalStateChanged"/>
       </div>
 
     </div>
   </base-layout>
 </template>
-  
+
 <script setup>
 import { ref } from "vue";
+
+const open = ref(false)
+const item = ref({
+  title: 'Teste'
+
+})
+const openModal = () => {
+  open.value = true
+  document.body.classList.add('modal-open');
+
+}
+const handleModalStateChanged = (newState) => {
+  open.value = newState;
+};
 
 const setting = ref([
   {
     name: 'Ver',
-    action: ''
+    action: '',
+    link: true
   },
   {
     name: 'Fazer Download',
@@ -65,7 +82,7 @@ const setting = ref([
   },
   {
     name: 'Excluir',
-    action: ''
+    action: openModal
   },
 ])
 
@@ -150,4 +167,3 @@ const tabs = [
 ]
 
 </script>
-  

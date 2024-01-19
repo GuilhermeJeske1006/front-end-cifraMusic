@@ -59,12 +59,27 @@
         <general-paginate />
       </div>
 
+      <music-modal-delete :open="open" :item="item"  @update:open="handleModalStateChanged"/>
     </div>
   </base-layout>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import {defineEmits, ref, watch} from "vue";
+
+const open = ref(false)
+const item = ref({
+  title: 'Teste'
+
+})
+const openModal = () => {
+  open.value = true
+  document.body.classList.add('modal-open');
+
+}
+const handleModalStateChanged = (newState) => {
+  open.value = newState;
+};
 
 
 const tabs = [
@@ -95,7 +110,8 @@ const tabs = [
 const setting = ref([
   {
     name: 'Ver',
-    action: '/music/detail/1'
+    action: '/music/detail/1',
+    link: true
   },
   {
     name: 'Editar',
@@ -103,7 +119,7 @@ const setting = ref([
   },
   {
     name: 'Excluir',
-    action: ''
+    action: openModal
   },
 ])
 

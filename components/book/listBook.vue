@@ -24,19 +24,21 @@
                 </button>
 
 
-                <div v-if="showSettings[index]"
-                    class="absolute  z-10 mt-2 w-48  rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                    role="menu" aria-orientation="vertical" :aria-labelledby="'user-menu-button-' + index" tabindex="-1">
-                    
-                    <a v-for="item in setting" :key="item.id" :href="item.action" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                        :id="'user-menu-item-0-' + index">{{ item.name }}</a>
-                 
-                </div>
+              <div v-if="showSettings[index]"
+                   class="absolute  z-10 mt-2 w-48  rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                   role="menu" aria-orientation="vertical" :aria-labelledby="'user-menu-button-' + index" tabindex="-1">
+
+                <a v-if="item.link" v-for="item in setting" :key="item.id" :href="item.action" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                   :id="'user-menu-item-0-' + index">{{ item.name }}</a>
+                <a v-if="!item.link" v-for="item in setting" :key="item.id" @click="item.action" class="block px-4 py-2 text-sm text-gray-700 cursor-pointer" role="menuitem" tabindex="-1"
+                   :id="'user-menu-item-0-' + index">{{ item.name }}</a>
+
+              </div>
             </div>
         </li>
     </ul>
 </template>
-  
+
 <script setup>
 import { ref, watch } from "vue";
 
@@ -53,4 +55,3 @@ const openSetting = (index) => {
 };
 
 </script>
-  
