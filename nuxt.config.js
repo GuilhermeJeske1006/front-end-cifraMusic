@@ -35,19 +35,48 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/composition-api/module'
+    '@nuxtjs/composition-api/module',
+    '@nuxtjs/router'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/tailwindcss',
-    'nuxt-vue-multiselect'
+    'nuxt-vue-multiselect',
+    '@nuxtjs/axios',
+    'cookie-universal-nuxt',
+/*
+    ['cookie-universal-nuxt', { alias: 'cookiz' }],
+*/
 
   ],
+
+  axios: {
+    baseURL: 'http://localhost:8000/api/', // Used as fallback if no runtime config is provided
+  },
+
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.BROWSER_BASE_URL
+    }
+  },
+
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.BASE_URL
+    }
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: ['axios'],
 
+  },
+
+  ssr: true,
+  target: 'server',
+
+  router: {
+    middleware: ['auth']
   }
 }
