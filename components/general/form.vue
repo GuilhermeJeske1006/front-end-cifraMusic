@@ -1,5 +1,5 @@
 <template>
-        <form>
+        <form @submit.prevent="submit">
           <slot></slot>
   
           <div class="mt-6 flex items-center justify-end gap-x-6">
@@ -11,7 +11,28 @@
 
   </template>
     
-  <script>
+  <script setup>
+import { useStore } from '@nuxtjs/composition-api';
+import { onMounted } from 'vue';
+
+  const props = defineProps({
+    action: {
+      type: Array,
+      default: () => []
+    },
+    submit: {
+      type: Function,
+      default: () => {}
+    }
+  })
+
+  const store = useStore()
+
+  onMounted(() => {
+    for(let i = 0; i < props.action.length; i++){
+      store.dispatch(props.action[i])
+    }
+  })
   
   </script>
     

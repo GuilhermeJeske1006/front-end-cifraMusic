@@ -25,7 +25,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/store/music/index.js',
-    '~/plugins/axios.js'
+    '~/plugins/axios',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -51,9 +51,11 @@ export default {
 
   ],
 
+
   axios: {
-    baseURL: 'http://localhost:8000/api/', // Used as fallback if no runtime config is provided
+    baseURL: process.env.API_URL
   },
+
 
   publicRuntimeConfig: {
     axios: {
@@ -67,10 +69,8 @@ export default {
     }
   },
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: ['axios'],
-
+    transpile: ['axios']
   },
 
   ssr: true,

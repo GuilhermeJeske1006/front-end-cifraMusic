@@ -1,28 +1,23 @@
 
 const actions = {
-  async storeMusic({ commit }, payload) {
-    const user = this.$cookies.get('user');
+  async getSingers({ commit }) {
     commit('setLoading', true);
 
     return new Promise((resolve, reject) => {
-      this.$axios.$post('music/store', {
-        ...payload, created_by: user.id
-      })
+      this.$axios.$get('singer')
         .then((response) => {
           commit('setData', response.data);
           commit('setLoading', false);
           resolve(response.data);
-          this.$router.push('/music/listing');
         })
         .catch(error => {
-          console.log('Error', error);
           commit('setError', error.message);
           commit('setLoading', false);
           reject(error);
         }).finally(() => {
-          console.log('Finally');
-          commit('setLoading', false);
-        },);
+        console.log('Finally');
+        commit('setLoading', false);
+      }, );
     });
   },
 };
