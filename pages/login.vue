@@ -46,7 +46,7 @@ import {ref} from "vue";
 import {useStore} from "@nuxtjs/composition-api";
 
 const data = ref({
-  email: "tierra.larson@example.org",
+  email: "scummings@example.com",
   password: "password"
 })
 

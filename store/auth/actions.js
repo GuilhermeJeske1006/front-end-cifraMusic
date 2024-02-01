@@ -9,6 +9,7 @@ const actions = {
             password: payload.password
        })
          .then((response) => {
+          console.log('Response', response);
            commit('setData', response.authorisation.token);
            commit('setLoading', false);
            resolve(response.data);
@@ -16,7 +17,13 @@ const actions = {
              path: '/',
              maxAge: 60 * 60 * 24 * 7
            });
+           this.$cookies.set('user', response.user, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+          });
+
            this.$router.push('/');
+           
          })
          .catch(error => {
            console.log('Error', error);

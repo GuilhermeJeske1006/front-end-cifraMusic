@@ -1,6 +1,14 @@
-// import axios from 'axios';
+export default function ({ $axios, redirect, app }) {
 
-// axios.defaults.baseURL = 'http://api.test/api'
+  if(app.$cookies.get('token')) {
+    $axios.setHeader('Authorization', `Bearer ${app.$cookies.get('token')}`)
+  }
 
-
-// export default axios;
+  $axios.onError(error => {
+    if(error.response.status === 401) {
+      app.$cookies.remove('token');
+      app.$cookies.remove('user');
+      redirect('/login')
+    }
+  })
+}

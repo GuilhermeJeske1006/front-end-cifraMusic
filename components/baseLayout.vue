@@ -5,6 +5,7 @@
         <slot></slot>
     </main>
     <static-footer/>
+
     </div>
   </template>
   
