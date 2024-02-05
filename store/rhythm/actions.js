@@ -1,12 +1,17 @@
 
 const actions = {
-  async getRhythms({ commit }) {
+  async getRhythms({ commit }, data) {
     commit('setLoading', true);
 
     return new Promise((resolve, reject) => {
-      this.$axios.$get('rhythm')
+      this.$axios.$get(`rhythm`, {
+        params: {
+          page: data.page,
+          search: data.search
+        }
+      })
         .then((response) => {
-          commit('setData', response.data);
+          commit('setData', response);
           commit('setLoading', false);
           resolve(response.data);
         })
@@ -20,6 +25,7 @@ const actions = {
       }, );
     });
   },
+
 };
 
 export default { ...actions };

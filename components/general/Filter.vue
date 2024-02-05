@@ -1,7 +1,7 @@
 <template>
 
 <div class=" p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
-<form class=" flex items-center">   
+<form @submit.prevent="submit" class=" flex items-center">   
     <label for="simple-search" class="sr-only">Procurar</label>
     <slot></slot>
     <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
@@ -15,3 +15,10 @@
 
 </div>
 </template>
+
+<script setup>
+
+    const props = defineProps({
+        submit: Function
+    })
+</Script>
