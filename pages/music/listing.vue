@@ -39,7 +39,7 @@
             </div>
             <input v-model="searchItem" type="text" id="simple-search"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  "
-              placeholder="Pesquise pelo nome da música..." required>
+              :placeholder="'Pesquise pelo nome' +  placeholder + ' ...'">
           </div>
         </general-filter>
 
@@ -97,6 +97,19 @@ const openModal = () => {
 const handleModalStateChanged = (newState) => {
   open.value = newState;
 };
+
+const placeholder = computed(() => {
+  if (selectTab.value === 0) {
+    return ' da música'
+  }
+  if (selectTab.value === 1) {
+    return ' do artista'
+  }
+  if (selectTab.value === 2) {
+    return ' do ritmo'
+  }
+  return '';
+});
 
 
 const search = () => {
