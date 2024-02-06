@@ -66,6 +66,9 @@ const remove = () => {
     if (props.selectTab === 2) {
       store.dispatch('rhythm/getRhythms', { page: 1 });
     } 
+    if (props.selectTab === 3) {
+      store.dispatch('music/HighLightMusic');
+    }
   });
 
 }
