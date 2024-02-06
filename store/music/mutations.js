@@ -12,4 +12,8 @@ export default {
       setPage(state, page) {
         console.log('state', state);
       },
+      setHighlight(state, highlight) {
+        state.highlight = highlight;
+      },
+      
 };

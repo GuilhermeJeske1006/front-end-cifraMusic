@@ -5,11 +5,11 @@
       <div class="flex min-w-0 gap-x-4">
         <div class="min-w-0 flex-auto">
           <p class="text-sm font-semibold leading-6 text-gray-900">{{ item.title }}</p>
-          <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{ item.singer.name_singer }}</p>
+          <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{ item.singer?.name_singer }}</p>
         </div>
       </div>
       <div class="hidden shrink-0  sm:flex sm:flex-col sm:items-center">
-        <p class="text-sm leading-6 text-gray-900">{{ item.rhythm.name_rhythm}}</p>
+        <p class="text-sm leading-6 text-gray-900">{{ item.rhythm?.name_rhythm}}</p>
         <p  class="mt-1 text-xs leading-5 text-gray-500">
           Criado em <time>{{ item.created_at }}</time>
         </p>

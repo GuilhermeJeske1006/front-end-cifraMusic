@@ -55,6 +55,28 @@ const actions = {
     });
   },
 
+ async HighLightMusic({ commit }) {
+    commit('setLoading', true);
+
+    return new Promise((resolve, reject) => {
+      this.$axios.$get('music/highlight')
+        .then((response) => {
+          commit('setHighlight', response.data);
+          commit('setLoading', false);
+          resolve(response.data);
+        })
+        .catch(error => {
+          console.log('Error', error);
+          commit('setError', error.message);
+          commit('setLoading', false);
+          reject(error);
+        }).finally(() => {
+          console.log('Finally');
+          commit('setLoading', false);
+        },);
+    });
+  },
+
    deleteMusic({ commit }, id) {
     commit('setLoading', true);
 
