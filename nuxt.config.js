@@ -19,6 +19,7 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     'flowbite/dist/flowbite.css',
+    '~/assets/css/main.css'
 
   ],
 
@@ -50,6 +51,14 @@ export default {
 */
 
   ],
+
+  // devtools: { enabled: true },
+  // postcss: {
+  //   plugins: {
+  //     tailwindcss: {},
+  //     autoprefixer: {},
+  //   },
+  // },
 
 
   axios: {

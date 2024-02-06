@@ -1,12 +1,17 @@
 
 const actions = {
-  async getSingers({ commit }) {
+  async getSingers({ commit }, data) {
     commit('setLoading', true);
 
     return new Promise((resolve, reject) => {
-      this.$axios.$get('singer')
+      this.$axios.$get(`singer`, {
+        params: {
+          page: data.page,
+          search: data.search
+        }
+      })
         .then((response) => {
-          commit('setData', response.data);
+          commit('setData', response);
           commit('setLoading', false);
           resolve(response.data);
         })

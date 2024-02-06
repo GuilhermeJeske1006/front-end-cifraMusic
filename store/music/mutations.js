@@ -8,4 +8,8 @@ export default {
       setError(state, error) {
         state.error = error;
       },
+
+      setPage(state, page) {
+        console.log('state', state);
+      },
 };

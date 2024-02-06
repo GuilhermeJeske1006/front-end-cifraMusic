@@ -28,7 +28,7 @@
 
 
         </div>
-        <general-filter class="mb-5">
+        <general-filter :submit="search" class="mb-5">
           <div class="relative w-full ">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
               <svg class="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -37,42 +37,57 @@
                   d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
               </svg>
             </div>
-            <input type="text" id="simple-search"
+            <input v-model="searchItem" type="text" id="simple-search"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  "
-              placeholder="Pesquise pelo nome da música..." required>
+              :placeholder="'Pesquise pelo nome' +  placeholder + ' ...'">
           </div>
         </general-filter>
+
         <general-tabs :items="tabs" />
 
-        <div class="relative mx-auto mt-10 w-full max-w-container ">
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contact sales</h2>
-
+        <div class="relative mx-auto mt-10 w-full max-w-container " v-if="selectTab == 0">
+          <music-list-music :items="items.data" :setting="setting" />
         </div>
-        <music-list-music :items="people" :setting="setting" />
 
-        <div class="relative mx-auto mt-10 w-full max-w-container ">
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contact sales</h2>
+        <div v-for="item in items.data" v-if="selectTab == 1">
 
+          <div class="relative mx-auto mt-10 w-full max-w-container ">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{ item.name_singer }}</h2>
+
+          </div>
+          <music-list-music :items="item.musics" :setting="setting" />
         </div>
-        <music-list-music :items="people" :setting="setting" />
 
-        <general-paginate />
+        <div v-for="item in items.data" v-if="selectTab == 2">
+
+          <div class="relative mx-auto mt-10 w-full max-w-container ">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{ item.name_rhythm }}</h2>
+
+          </div>
+          <music-list-music :items="item.musics" :setting="setting" />
+        </div>
+
+
+        <general-paginate :current-page="items.meta.current_page" :total-pages="items.meta.last_page"
+          :total-items-per-page="items.meta.per_page" :total-items="items.meta.total" @page-change="handlePageChange" />
       </div>
 
-      <music-modal-delete :open="open" :item="item"  @update:open="handleModalStateChanged"/>
+      <music-modal-delete :open="open" :selectTab="selectTab" :item="item" @update:open="handleModalStateChanged" />
     </div>
   </base-layout>
 </template>
 
 <script setup>
-import {defineEmits, ref, watch} from "vue";
+import { computed, defineEmits, onMounted, ref, watchEffect } from "vue";
+import { useStore } from "@nuxtjs/composition-api";
 
 const open = ref(false)
-const item = ref({
-  title: 'Teste'
+const item = ref({})
 
-})
-const openModal = () => {
+const searchItem = ref('')
+
+const openModal = (i) => {
+  item.value = i
   open.value = true
   document.body.classList.add('modal-open');
 
@@ -82,12 +97,90 @@ const handleModalStateChanged = (newState) => {
 };
 
 
+const placeholder = computed(() => {
+  if (selectTab.value === 0) {
+    return ' da música'
+  }
+  if (selectTab.value === 1) {
+    return ' do artista'
+  }
+  if (selectTab.value === 2) {
+    return ' do ritmo'
+  }
+  return '';
+});
+
+
+const search = () => {
+  if(selectTab.value === 0){
+    store.dispatch('music/ListMusic', { page: 1, search: searchItem.value });
+  }
+  if(selectTab.value === 1){
+    store.dispatch('singer/getSingers', { page: 1, search: searchItem.value });
+  }
+  if(selectTab.value === 2){
+    store.dispatch('rhythm/getRhythms', { page: 1, search: searchItem.value });
+  }
+}
+
+const store = useStore()
+
+const selectTab = ref(0)
+
+const handlePageChange = (page) => {
+  if (selectTab.value === 0){
+    store.dispatch('music/ListMusic', { page });
+  }
+  if (selectTab.value === 1){
+    store.dispatch('singer/getSingers', { page });
+  } 
+  if (selectTab.value === 2) {
+    store.dispatch('rhythm/getRhythms', { page });
+  } 
+};
+
+const items = computed(() => {
+  if (selectTab.value === 0) {
+    return store.state.music.data || {};
+  }
+  if (selectTab.value === 1) {
+    return store.state.singer.data || {};
+  }
+  if (selectTab.value === 2) {
+    return store.state.rhythm.data || {};
+  }
+  return {};
+});
+
+onMounted(() => {
+  selectTab.value = 0
+  store.dispatch('music/ListMusic', { page: 1 });
+})
+
+const musics = () => {
+  selectTab.value = 0
+  store.dispatch('music/ListMusic', { page: 1 })
+}
+
+const singers = () => {
+  selectTab.value = 1
+  store.dispatch('singer/getSingers', { page: 1 })
+}
+
+const rhythms = () => {
+  selectTab.value = 2
+  store.dispatch('rhythm/getRhythms', { page: 1 })
+}
+
+
 const tabs = [
   {
     icon: ` <svg class="w-4 h-4 me-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 10">
     <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M6 1h10M6 5h10M6 9h10M1.49 1h.01m-.01 4h.01m-.01 4h.01"/>
   </svg>`,
-    name: 'Todos'
+    name: 'Todos',
+
+    action: musics
 
   },
   {
@@ -95,14 +188,16 @@ const tabs = [
     <path d="M15 5a1 1 0 0 0-1 1v3a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V6a1 1 0 0 0-2 0v3a6.006 6.006 0 0 0 6 6h1v2H5a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2H9v-2h1a6.006 6.006 0 0 0 6-6V6a1 1 0 0 0-1-1Z"/>
     <path d="M9 0H7a3 3 0 0 0-3 3v5a3 3 0 0 0 3 3h2a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3Z"/>
   </svg>`,
-    name: 'Por Artista'
+    name: 'Por Artista',
+    action: singers
 
   },
   {
     icon: `<svg class="w-4 h-4 me-2 text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 11.5V1s3 1 3 4m-7-3H1m9 4H1m4 4H1m13 2.4c0 1.325-1.343 2.4-3 2.4s-3-1.075-3-2.4S9.343 10 11 10s3 1.075 3 2.4Z"/>
   </svg>`,
-    name: 'Por Ritmo'
+    name: 'Por Ritmo',
+    action: rhythms
 
   }
 ]
@@ -123,58 +218,5 @@ const setting = ref([
   },
 ])
 
-const people = ref([
-  {
-    name: 'Leslie Alexander',
-    email: 'leslie.alexander@example.com',
-    role: 'Co-Founder / CEO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    lastSeen: '3h ago',
-    lastSeenDateTime: '2023-01-23T13:23Z',
-  },
-  {
-    name: 'Michael Foster',
-    email: 'michael.foster@example.com',
-    role: 'Co-Founder / CTO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    lastSeen: '3h ago',
-    lastSeenDateTime: '2023-01-23T13:23Z',
-  },
-  {
-    name: 'Dries Vincent',
-    email: 'dries.vincent@example.com',
-    role: 'Business Relations',
-    imageUrl:
-      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    lastSeen: null,
-  },
-  {
-    name: 'Lindsay Walton',
-    email: 'lindsay.walton@example.com',
-    role: 'Front-end Developer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    lastSeen: '3h ago',
-    lastSeenDateTime: '2023-01-23T13:23Z',
-  },
-  {
-    name: 'Courtney Henry',
-    email: 'courtney.henry@example.com',
-    role: 'Designer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    lastSeen: '3h ago',
-    lastSeenDateTime: '2023-01-23T13:23Z',
-  },
-  {
-    name: 'Tom Cook',
-    email: 'tom.cook@example.com',
-    role: 'Director of Product',
-    imageUrl:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    lastSeen: null,
-  },]);
 
 </script>

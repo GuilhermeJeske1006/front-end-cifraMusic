@@ -1,6 +1,11 @@
 const state = () => {
     return {
-      data: null,
+      data: {
+        meta: {
+  
+        },
+      
+      },
       loading: false,
       error: null,
     };

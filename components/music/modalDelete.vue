@@ -28,6 +28,7 @@
 </template>
 
 <script setup>
+import { useStore } from '@nuxtjs/composition-api';
 import { defineEmits, defineProps, ref, watch } from 'vue';
 
 const props = defineProps({
@@ -39,6 +40,10 @@ const props = defineProps({
     type: Object,
     default: {},
   },
+  selectTab: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const emits = defineEmits(['update:open']);
@@ -47,10 +52,21 @@ watch(() => props.open, (newValue) => {
   emits('update:open', newValue);
 
 });
+const store = useStore();
 
 const remove = () => {
-  console.log('delete')
   emits('update:open', false);
+  store.dispatch('music/deleteMusic', props.item.id).then(() => {
+    if (props.selectTab === 0){
+    store.dispatch('music/ListMusic', { page: 1  });
+    }
+    if (props.selectTab === 1){
+      store.dispatch('singer/getSingers', { page: 1 });
+    } 
+    if (props.selectTab === 2) {
+      store.dispatch('rhythm/getRhythms', { page: 1 });
+    } 
+  });
 
 }
 

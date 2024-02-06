@@ -6,8 +6,8 @@ export default function ({ $axios, redirect, app }) {
 
   $axios.onError(error => {
     if(error.response.status === 401) {
-      app.$cookies.remove('token');
-      app.$cookies.remove('user');
+      // app.$cookies.remove('token');
+      // app.$cookies.remove('user');
       redirect('/login')
     }
   })
