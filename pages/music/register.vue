@@ -77,9 +77,9 @@ watchEffect(() => {
   items.value.highlight ? items.value.notHighlight = false : items.value.notHighlight = true;
 });
 
-const singers = computed(() => store.state.singer.data);
+const singers = computed(() => store.state.singer.data.data);
 const notes = computed(() => store.state.note.data);
-const rhythms = computed(() => store.state.rhythm.data);
+const rhythms = computed(() => store.state.rhythm.data.data);
 
 const actions = ref(['singer/getSingers', 'note/getNotes', 'rhythm/getRhythms']);
 

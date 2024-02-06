@@ -30,7 +30,7 @@ import { onMounted } from 'vue';
 
   onMounted(() => {
     for(let i = 0; i < props.action.length; i++){
-      store.dispatch(props.action[i])
+      store.dispatch(props.action[i], { page: 1 })
     }
   })
   
