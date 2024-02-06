@@ -3,6 +3,7 @@ const getters = {
   getLoading: state => state.loading,
   getError: state => state.error,
   getHighlight: state => state.highlight,
+  getDetail: state => state.detail,
   
 };
   

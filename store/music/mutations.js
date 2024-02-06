@@ -15,5 +15,8 @@ export default {
       setHighlight(state, highlight) {
         state.highlight = highlight;
       },
+      setDetail(state, detail) {
+        state.detail = detail;
+      },
       
 };

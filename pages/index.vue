@@ -41,7 +41,7 @@ const handleModalStateChanged = (newState) => {
 const store = useStore()
 
 onMounted(() => {
-  store.dispatch('music/HighLightMusic', { page: 1 });
+  store.dispatch('music/highLightMusic', { page: 1 });
 })
 
 const items = computed(() => {
@@ -51,7 +51,7 @@ const items = computed(() => {
 const setting = ref([
   {
     name: 'Ver',
-    action: '/music/detail/1',
+    action: '/music/detail/',
     link: true
   },
   {
