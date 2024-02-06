@@ -113,7 +113,7 @@ const placeholder = computed(() => {
 
 const search = () => {
   if(selectTab.value === 0){
-    store.dispatch('music/ListMusic', { page: 1, search: searchItem.value });
+    store.dispatch('music/listMusic', { page: 1, search: searchItem.value });
   }
   if(selectTab.value === 1){
     store.dispatch('singer/getSingers', { page: 1, search: searchItem.value });
@@ -129,7 +129,7 @@ const selectTab = ref(0)
 
 const handlePageChange = (page) => {
   if (selectTab.value === 0){
-    store.dispatch('music/ListMusic', { page });
+    store.dispatch('music/listMusic', { page });
   }
   if (selectTab.value === 1){
     store.dispatch('singer/getSingers', { page });
@@ -154,12 +154,12 @@ const items = computed(() => {
 
 onMounted(() => {
   selectTab.value = 0
-  store.dispatch('music/ListMusic', { page: 1 });
+  store.dispatch('music/listMusic', { page: 1 });
 })
 
 const musics = () => {
   selectTab.value = 0
-  store.dispatch('music/ListMusic', { page: 1 })
+  store.dispatch('music/listMusic', { page: 1 })
 }
 
 const singers = () => {
@@ -205,7 +205,7 @@ const tabs = [
 const setting = ref([
   {
     name: 'Ver',
-    action: '/music/detail/1',
+    action: '/music/detail/',
     link: true
   },
   {

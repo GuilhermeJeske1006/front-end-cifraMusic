@@ -29,7 +29,7 @@ const actions = {
 
 
 
-  async ListMusic({ commit }, data = 1, search) {
+  async listMusic({ commit }, data = 1, search) {
     commit('setLoading', true);
 
     return new Promise((resolve, reject) => {
@@ -55,13 +55,35 @@ const actions = {
     });
   },
 
- async HighLightMusic({ commit }) {
+ async highLightMusic({ commit }) {
     commit('setLoading', true);
 
     return new Promise((resolve, reject) => {
       this.$axios.$get('music/highlight')
         .then((response) => {
           commit('setHighlight', response.data);
+          commit('setLoading', false);
+          resolve(response.data);
+        })
+        .catch(error => {
+          console.log('Error', error);
+          commit('setError', error.message);
+          commit('setLoading', false);
+          reject(error);
+        }).finally(() => {
+          console.log('Finally');
+          commit('setLoading', false);
+        },);
+    });
+  },
+
+  async showMusic({ commit }, id) {
+    commit('setLoading', true);
+
+    return new Promise((resolve, reject) => {
+      this.$axios.$get(`/music/${id}`)
+        .then((response) => {
+          commit('setDetail', response.data);
           commit('setLoading', false);
           resolve(response.data);
         })
