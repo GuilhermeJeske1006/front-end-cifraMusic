@@ -82,14 +82,12 @@ import { computed, defineEmits, onMounted, ref, watch } from "vue";
 import { useStore } from "@nuxtjs/composition-api";
 
 const open = ref(false)
-const item = ref({
-  title: 'Teste'
-
-})
+const item = ref({})
 
 const searchItem = ref('')
 
-const openModal = () => {
+const openModal = (i) => {
+  item.value = i
   open.value = true
   document.body.classList.add('modal-open');
 
@@ -97,6 +95,7 @@ const openModal = () => {
 const handleModalStateChanged = (newState) => {
   open.value = newState;
 };
+
 
 const placeholder = computed(() => {
   if (selectTab.value === 0) {
