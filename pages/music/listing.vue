@@ -72,13 +72,13 @@
           :total-items-per-page="items.meta.per_page" :total-items="items.meta.total" @page-change="handlePageChange" />
       </div>
 
-      <music-modal-delete :open="open" :item="item" @update:open="handleModalStateChanged" />
+      <music-modal-delete :open="open" :selectTab="selectTab" :item="item" @update:open="handleModalStateChanged" />
     </div>
   </base-layout>
 </template>
 
 <script setup>
-import { computed, defineEmits, onMounted, ref, watch } from "vue";
+import { computed, defineEmits, onMounted, ref, watchEffect } from "vue";
 import { useStore } from "@nuxtjs/composition-api";
 
 const open = ref(false)
